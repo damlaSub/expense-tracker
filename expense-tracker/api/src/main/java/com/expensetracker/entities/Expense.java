@@ -30,7 +30,7 @@ public class Expense {
 	private LocalDate date;
 	
 	
-    @Column(name = "category_name")
+    @Column(name = "category")
 	private String category;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
