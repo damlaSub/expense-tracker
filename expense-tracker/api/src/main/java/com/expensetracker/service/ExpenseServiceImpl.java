@@ -2,6 +2,7 @@ package com.expensetracker.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.expensetracker.dto.ExpenseCreateDto;
+import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
+import com.expensetracker.dto.ExpenseUpdateDto;
 import com.expensetracker.entities.Account;
 import com.expensetracker.entities.Expense;
 import com.expensetracker.error.AccountNotFoundException;
@@ -66,10 +69,28 @@ public class ExpenseServiceImpl implements ExpenseService{
     				"Account not found"));
     }
 
-
+	@Transactional
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		Expense expense = expenseRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Expense not found"));
+        expenseRepo.delete(expense);
+		
+	}
+
+	@Override
+	public ExpenseForUpdate getForUpdate(Long id) {
+		return expenseRepo.findProjectedById(id);
+	}
+	
+	@Transactional
+	@Override
+	public void update(Long id, ExpenseUpdateDto inputs) {
+		Expense expense = expenseRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Expense not found"));
+		Optional.ofNullable(inputs.getAmount()).ifPresent(expense::setAmount);
+	    Optional.ofNullable(inputs.getCategory()).ifPresent(expense::setCategory);
+	    Optional.ofNullable(inputs.getDescription()).ifPresent(expense::setDescription);
 		
 	}
 	
