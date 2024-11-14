@@ -1,0 +1,135 @@
+<!-- <style>
+/* General Styles */
+.signin-container {
+  height: 100%;
+}
+
+.signin-wrapper {
+  max-width: 100%;
+}
+
+/* Card Styling */
+.signin-card {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* Button Styling */
+.signin-btn {
+  background-color: #00A;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.signin-btn:hover {
+  background-color: #008;
+}
+
+/* Input Styling */
+.signin-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signin-input:focus {
+  outline: none;
+  border-color: #00A;
+}
+
+/* Error Message Styling */
+.error-text {
+  color: red;
+}
+
+/* Link Styling */
+.forgot-password-link {
+  color: #00A;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.forgot-password-link:hover {
+  color: #008;
+}
+
+.signup-route {
+  font-weight: bold;
+}
+
+.signin-logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.signin-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signin-card-footer {
+  padding-top: 15px;
+}
+
+.signup-link {
+  text-align: center;
+}
+</style> -->
+
+<main class="h-100">
+  <div class="container h-100 mt-5">
+    <div class="row justify-content-sm-center vh-100">
+      <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <div class="text-center my-1">
+              <img [src]="imgURL + 'favicon-32x32.png'" alt="logo" width="30" />
+            </div>
+            <h1 class="fs-4 card-title fw-bold mb-4">Sign in</h1>
+            <form (ngSubmit)="onSubmit($event)" method="POST" class="needs-validation login-form" autocomplete="off" novalidate>
+              <div class="tooltip-wrapper mb-3">
+              </div>
+
+              <div class="mb-3">
+                <input id="email" type="email" class="form-control" name="email" [(ngModel)]="email" placeholder="Email" autofocus />
+              </div>
+
+              <div class="mb-3">
+                <input id="password" type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Password" />
+              </div>
+
+              <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn blue-btn btn-save" style="white-space: nowrap">Sign in</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer py-3 border-0">
+            <div class="text-center">
+              Sign up
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+  
+
+  

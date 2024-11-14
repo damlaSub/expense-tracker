@@ -1,1 +1,75 @@
-/* You can add global styles to this file, and also import other style files */
+    /* General resets */
+    * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   html, body {
+   margin: 0; 
+   padding: 0;
+ }
+ 
+   body {
+     font-family: Arial, sans-serif;
+     background-color: #fff;
+   }
+ 
+   /* Navbar styling */
+  
+   .navbar {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 15px 20px; 
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+   .navbar .app-icon {
+     height: 32px; 
+   }
+ 
+   .btn-style {
+     display: flex;
+     gap: 10px;
+   }
+ 
+   /* Styling for buttons */
+   .btn-style button {
+     padding: 8px 16px;
+     border: none;
+     cursor: pointer;
+     font-size: 16px;
+     border-radius: 5px; 
+   }
+ 
+   .sign-in-btn {
+     background-color: #fff;
+     color: #333;
+     border: 1px solid #ccc;
+   }
+ 
+   .sign-in-btn:hover {
+     background-color: #f0f0f0; 
+   }
+ 
+   .blue-btn {
+     background-color: #00A;
+     color: #fff;
+   }
+ 
+   .blue-btn:hover {
+     background-color: #008; 
+     color: #fff;
+   }
+ 
+   /* Main content styling */
+   .main {
+     padding: 20px;
+   }
+ 
+   .content h1 {
+     text-align: center;
+     margin-top: 50px;
+     font-size: 2em;
+     color: #333;
+   }
