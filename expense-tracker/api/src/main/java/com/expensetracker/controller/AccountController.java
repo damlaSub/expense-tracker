@@ -1,6 +1,5 @@
 package com.expensetracker.controller;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +24,6 @@ public class AccountController {
 	    public AccountController(AccountService service) {
 		this.service = service;
 	    }
-
 	    @PostMapping("/sign-up")
 	    @ResponseStatus(HttpStatus.NO_CONTENT)
 	    public void signUp(

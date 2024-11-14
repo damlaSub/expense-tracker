@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "expensetracker.cors.allowedOrigins",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.cors.allowedOrigins'"
+  },
+  {
+    "name": "expensetracker.auth.rounds",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.auth.rounds'"
+  },
+  {
+    "name": "expensetracker.cors.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.cors.enabled'"
+  },
+  {
+    "name": "expensetracker.auth.issuer",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.auth.issuer'"
+  },
+  {
+    "name": "expensetracker.auth.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.auth.secret'"
+  },
+  {
+    "name": "expensetracker.auth.tokenExpiration",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.auth.tokenExpiration'"
+  },
+  {
+    "name": "expensetracker.auth.refreshTokenExpiration",
+    "type": "java.lang.String",
+    "description": "A description for 'expensetracker.auth.refreshTokenExpiration'"
+  }
+]}
