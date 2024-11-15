@@ -10,10 +10,13 @@ import { LocalizationService } from '../services/localization.service';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
+  userName: string = '';
+
   constructor(private router: Router, private localizationService: LocalizationService) {}
 
   ngOnInit() {
     this.localizationService.loadLanguage('en'); 
+    this.userName = localStorage.getItem('userName') || '';
   }
 
   $t(key: string): string {

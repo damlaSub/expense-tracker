@@ -1,19 +1,67 @@
+<style>
+.navbar {
+      box-shadow: none;
+      border: none;
+     
+
+    }
+.icon {
+border-radius:80%
+}
+  .bottom-button-bar button:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+  }
+</style>
 <main class="main">
-    <div class="content">
-  
-      <nav class="navbar">
-        <img src="images/favicon-32x32.png" alt="App Icon" class="app-icon" />
-        <div class="button-group btn-style">
-            <button class=""><i class="bi bi-bell"></i></button>
-            <button class=""><i class="bi bi-gear"></i></button>
-        </div>
-      </nav>
-      
-      <div class="content">
-        <h1>{{ $t('dashboard.dash') }}</h1>
+  <div class="content">
+    <nav class="navbar bg-transparent px-3 border-0">
+      <img src="images/favicon-32x32.png" alt="App Icon" class="app-icon" />
+      <div class="btn-group">
+        <button class="btn btn-light rounded-circle"><i class="bi bi-search"></i></button>
       </div>
-  
+    </nav>
+
+    <div class="d-flex justify-content-between align-items-center py-3">
+      <div class="d-flex justify-content-between align-items-center py-3">
+        <!-- Left Side (User Icon + Hello + User Name) -->
+        <div class="d-flex align-items-center">
+          <!-- User Icon -->
+          <!-- <img src="path/to/user-icon.png" alt="User Icon" class="rounded-circle ms-3" width="40" height="40"/> -->
+          <button class="btn btn-light rounded-circle"><i class="bi bi-person-circle"></i></button>
+          
+          <div class="ms-3 d-flex flex-column">
+            <span >Hello</span>
+            <span>{{ userName }}</span>
+          </div>
+        </div>
     </div>
-  </main>
+
+      <!-- Right Side (Button) -->
+      <div class="btn-group">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          This month
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">This week</a></li>
+          <li><a class="dropdown-item" href="#">This year</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  
+
+  <div class="d-flex justify-content-around align-items-center bg-transparent p-2 position-fixed bottom-0 w-100 border-0">
+    <button class="btn btn-light rounded-circle"><i class="bi bi-house"></i></button>
+    <button class="btn btn-light rounded-circle"><i class="bi bi-bar-chart-line"></i></button>
+    <button class="btn btn-light rounded-circle"><i class="bi bi-gear"></i></button>
+    <button class="btn btn-light rounded-circle"><i class="bi bi-plus-circle"></i></button>
+    <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
+    <button class="btn btn-light rounded-circle"><i class="bi bi-person"></i></button>
+  </div>
+</main>
+
 
 
