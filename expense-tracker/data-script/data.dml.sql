@@ -12,3 +12,27 @@ VALUES (1, 100.00, 'Lunch', 'FOOD', '2024-11-01');
 
 INSERT INTO expenses (account_id, amount, description, category, added_at)
 VALUES (1, 50.00, 'Yoga', 'SPORT', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 100.00, '', 'GROCERIES', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 50.00, 'Yoga', 'SPORT', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 100.00, 'Lunch', 'FOOD', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 50.00, 'Certif', 'EDUCATION', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 100.00, 'Lunch', 'FOOD', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 500.00, '', 'TRAVEL', '2024-11-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 100.00, 'Lunch', 'FOOD', '2024-10-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 500.00, '', 'TRAVEL', '2024-10-01');
