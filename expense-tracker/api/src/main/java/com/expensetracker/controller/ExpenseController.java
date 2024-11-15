@@ -17,6 +17,7 @@ import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
 import com.expensetracker.dto.ExpenseUpdateDto;
+import com.expensetracker.dto.ReportResponse;
 import com.expensetracker.service.ExpenseService;
 
 import jakarta.validation.Valid;
@@ -59,4 +60,18 @@ public class ExpenseController {
 		service.update(id, inputs);
 	}
 	
+	@GetMapping("/reports-week")
+    public ReportResponse getThisWeekReport() {
+        return service.getThisWeekReport();
+    }
+	
+	@GetMapping("/reports-month")
+    public ReportResponse getThisMonthReport() {
+        return service.getThisMonthReport();
+    }
+	
+	@GetMapping("/reports-year")
+    public ReportResponse getThisYearReport() {
+        return service.getThisYearReport();
+    }
 }

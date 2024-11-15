@@ -1,9 +1,12 @@
 package com.expensetracker.service;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +19,7 @@ import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
 import com.expensetracker.dto.ExpenseUpdateDto;
+import com.expensetracker.dto.ReportResponse;
 import com.expensetracker.entities.Account;
 import com.expensetracker.entities.Expense;
 import com.expensetracker.error.AccountNotFoundException;
@@ -93,6 +97,57 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    Optional.ofNullable(inputs.getDescription()).ifPresent(expense::setDescription);
 		
 	}
+	
+	 public ReportResponse getThisWeekReport() {
+	        LocalDate now = LocalDate.now();
+	        
+	        LocalDate startOfWeek = now.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+
+	        LocalDate endOfWeek = startOfWeek.plusDays(6);
+
+	        List<ExpenseItem> expenseItems = expenseRepo.findExpenseItemsByDateRange(startOfWeek, endOfWeek, getAccountId());
+	        
+	        // Group by category and calculate totals
+	        Map<String, Double> categoryTotals = expenseItems.stream()
+	        	    .collect(Collectors.groupingBy(ExpenseItem::getCategory, 
+	        	        Collectors.summingDouble(ExpenseItem::getAmount))); 
+
+	        return new ReportResponse(startOfWeek, endOfWeek, categoryTotals);
+	    }
+
+	    public ReportResponse getThisMonthReport() {
+	        LocalDate now = LocalDate.now();
+	        
+	        LocalDate startOfMonth = now.withDayOfMonth(1);
+	        
+	        LocalDate endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth());
+
+	    
+	        List<ExpenseItem> expenseItems = expenseRepo.findExpenseItemsByDateRange(startOfMonth, endOfMonth, getAccountId());
+	        
+	        Map<String, Double> categoryTotals = expenseItems.stream()
+	        	    .collect(Collectors.groupingBy(ExpenseItem::getCategory, 
+	        	        Collectors.summingDouble(ExpenseItem::getAmount))); 
+
+
+	        return new ReportResponse(startOfMonth, endOfMonth, categoryTotals);
+	    }
+
+	    public ReportResponse getThisYearReport() {
+	        LocalDate now = LocalDate.now();
+	        
+	        LocalDate startOfYear = now.withDayOfYear(1);
+	        
+	        LocalDate endOfYear = now.with(TemporalAdjusters.lastDayOfYear());
+
+	        List<ExpenseItem> expenseItems = expenseRepo.findExpenseItemsByDateRange(startOfYear, endOfYear, getAccountId());
+	        
+	        Map<String, Double> categoryTotals = expenseItems.stream()
+	        	    .collect(Collectors.groupingBy(ExpenseItem::getCategory, 
+	        	        Collectors.summingDouble(ExpenseItem::getAmount))); 
+
+	        return new ReportResponse(startOfYear, endOfYear, categoryTotals);
+	    }
 	
 	
 }

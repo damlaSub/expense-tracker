@@ -6,6 +6,7 @@ import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
 import com.expensetracker.dto.ExpenseUpdateDto;
+import com.expensetracker.dto.ReportResponse;
 
 import jakarta.validation.Valid;
 
@@ -21,4 +22,10 @@ public interface ExpenseService {
 	void update(Long id, ExpenseUpdateDto inputs);
 
 	ExpenseForUpdate getForUpdate(Long id);
+	
+	ReportResponse getThisWeekReport();
+	
+	ReportResponse getThisMonthReport();
+	
+	ReportResponse getThisYearReport();
 }

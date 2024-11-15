@@ -8,7 +8,7 @@ public interface ExpenseItem {
 
 	Long getId();
 	
-    String getAmount();
+	Double getAmount();
 
     String getDescription();
 
