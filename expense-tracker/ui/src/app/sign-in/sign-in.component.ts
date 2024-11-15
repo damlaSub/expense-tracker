@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms'; 
-import { HttpService } from '../services/http.service'; 
+import { HttpService } from '../services/http.service';
+import { LocalizationService } from '../services/localization.service';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -11,14 +13,20 @@ import { HttpService } from '../services/http.service';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   email: string = '';
   password: string = '';
   errorMessage: string | null = null;
   public imgURL = environment.imgURL;
 
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(private httpService: HttpService, private router: Router, private localizationService: LocalizationService) { }
+  ngOnInit() {
+    this.localizationService.loadLanguage('en'); 
+  }
 
+  translate(key: string): string {
+    return this.localizationService.$t(key);
+  }
 
   onSubmit(event: Event) {
     event.preventDefault(); console.log('Clicked, submitting...');

@@ -13,7 +13,7 @@ export class HomeComponent  implements OnInit {
   constructor(private router: Router, private localizationService: LocalizationService) {}
 
   ngOnInit() {
-    this.localizationService.loadLanguage('en'); // Load the default language
+    this.localizationService.loadLanguage('en'); 
   }
 
   translate(key: string): string {

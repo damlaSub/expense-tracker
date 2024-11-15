@@ -1,5 +1,20 @@
 {
-    "welcome": "Welcome to the Expense Tracker!",
-    "greeting": "Hello, {{name}}!"
+    "home": {
+      "welcome": "Welcome to the Expense Tracker!",
+      "greeting": "Hello, {{name}}!"
+    },
+    "auth": {
+      "signIn": "Sign in",
+      "signUp": "Sign up",
+      "signOut": "Sign out",
+      "email": "e-mail*",
+      "psw": "password*",
+      "accQuest": "Don't have an account?",
+      "forgot": "Forgot Password?",
+      "haveAcc": "Already have an account?",
+      "remember": "Remember Me",
+      "firstN": "first name*",
+      "lastN": "last name*"
+    }
   }
   
