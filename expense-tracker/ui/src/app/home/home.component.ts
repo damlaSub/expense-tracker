@@ -16,8 +16,8 @@ export class HomeComponent  implements OnInit {
     this.localizationService.loadLanguage('en'); 
   }
 
-  translate(key: string): string {
-    return this.localizationService.$t(key);
+  $t(key: string): string {
+    return this.localizationService.translate(key);
   }
 
   navigateToSignIn() {

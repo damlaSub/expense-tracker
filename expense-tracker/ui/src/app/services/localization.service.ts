@@ -9,7 +9,8 @@ interface Translation {
 })
 export class LocalizationService {
   private currentLanguage = 'en';
-  private translate: Translation = {};  // Use the Translation interface here
+  //private translate: Translation = {};  // Use the Translation interface here
+  private $t: Translation = {}; 
   private loaded = false;
 
   // Loads the language JSON file and stores it in `translate`
@@ -20,20 +21,20 @@ export class LocalizationService {
         throw new Error(`Failed to fetch language file: ${response.statusText}`);
       }
       const data: Translation = await response.json();
-      this.translate = data;
+      this.$t = data;
       this.loaded = true;
     } catch (error) {
       console.error('Error loading language file:', error);
     }
   }
 
-  $t(key: string): string {
+  translate(key: string): string {
     if (!this.loaded) {
       return key;  
     }
   
     const keys = key.split('.');  // Split key for dot notation (e.g. 'home.welcome')
-    let result: any = this.translate;  
+    let result: any = this.$t;  
   
     // Traverse the nested structure to find the translation
     for (const part of keys) {

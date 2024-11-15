@@ -8,7 +8,7 @@
             <div class="text-center my-1">
               <img [src]="imgURL + 'favicon-32x32.png'" alt="logo" width="30" />
             </div>
-            <h1 class="fs-4 card-title fw-bold mb-4">{{ translate('auth.signIn') }}</h1>
+            <h1 class="fs-4 card-title fw-bold mb-4">{{ $t('auth.signIn') }}</h1>
             <form (ngSubmit)="onSubmit($event)" method="POST" class="needs-validation login-form" autocomplete="off" novalidate>
               <div class="tooltip-wrapper mb-3">
               </div>
@@ -22,13 +22,13 @@
               </div>
 
               <div class="d-flex justify-content-center align-items-center">
-                <button type="submit" class="btn blue-btn btn-save" style="white-space: nowrap">{{ translate('auth.signIn') }}</button>
+                <button type="submit" class="btn blue-btn btn-save" style="white-space: nowrap">{{ $t('auth.signIn') }}</button>
               </div>
             </form>
           </div>
           <div class="card-footer py-3 border-0">
             <div class="text-center">
-              {{ translate('auth.signUp') }}
+              {{ $t('auth.signUp') }}
             </div>
           </div>
         </div>
