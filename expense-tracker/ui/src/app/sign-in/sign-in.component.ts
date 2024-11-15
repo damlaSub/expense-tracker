@@ -31,6 +31,7 @@ export class SignInComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault(); console.log('Clicked, submitting...');
     const data = { email: this.email, password: this.password };
+    localStorage.clear();
     this.httpService.post('account/sign-in', data).subscribe({
       next: (response) => {
         console.log('Sign-in successful:', response);
