@@ -32,10 +32,10 @@ export class HttpService {
       );
   }
 
-  // PUT request
+  // PATCH request
   put<T>(endpoint: string, body: any, headers: HttpHeaders = new HttpHeaders()): Observable<T> {
     return this.http
-      .put<T>(`${this.apiUrl}/${endpoint}`, body, { headers })
+      .patch<T>(`${this.apiUrl}/${endpoint}`, body, { headers })
       .pipe(
         map((response) => response),
         catchError(this.handleError)

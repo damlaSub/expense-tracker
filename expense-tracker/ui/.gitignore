@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 #Images
-/images/
+/public/images/

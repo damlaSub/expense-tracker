@@ -26,12 +26,12 @@ export class SignInComponent {
     this.httpService.post('account/sign-in', data).subscribe({
       next: (response) => {
         console.log('Sign-in successful:', response);
-        // Navigate to dashboard upon success
+        
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error('Sign-in failed:', error);
-        this.errorMessage = 'Sign-in failed. Please check your credentials.';  // Show error message
+        this.errorMessage = 'Sign-in failed. Please check your credentials.'; 
       },
     });
   }

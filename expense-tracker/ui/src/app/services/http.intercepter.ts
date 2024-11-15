@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export class HttpInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Add headers globally (e.g., Auth Token, Content-Type)
-    const token = localStorage.getItem('token'); // or use sessionStorage.getItem('token') if needed
+    const token = localStorage.getItem('token'); 
     const clonedReq = req.clone({
       setHeaders: {
         Authorization: token ? `Bearer ${token}`: '',  //  manage token storage and retrieval 
