@@ -36,3 +36,10 @@ VALUES (1, 100.00, 'Lunch', 'FOOD', '2024-10-01');
 
 INSERT INTO expenses (account_id, amount, description, category, added_at)
 VALUES (1, 500.00, '', 'TRAVEL', '2024-10-01');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 100.00, 'Lunch', 'FOOD', '2024-11-17');
+
+INSERT INTO expenses (account_id, amount, description, category, added_at)
+VALUES (1, 500.00, '', 'TRAVEL', '2024-11-17');
+
