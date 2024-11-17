@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.expensetracker.dto.DailyReport;
 import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
@@ -59,6 +60,11 @@ public class ExpenseController {
 	public void update(@PathVariable Long id, @Valid @RequestBody ExpenseUpdateDto inputs) {
 		service.update(id, inputs);
 	}
+	
+	@GetMapping("/reports-day")
+    public DailyReport getMostRecentReport() {
+        return service.getMostRecentReport();
+    }
 	
 	@GetMapping("/reports-week")
     public ReportResponse getThisWeekReport() {

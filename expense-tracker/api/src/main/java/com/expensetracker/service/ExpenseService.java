@@ -2,13 +2,13 @@ package com.expensetracker.service;
 
 import java.util.List;
 
+import com.expensetracker.dto.DailyReport;
 import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
 import com.expensetracker.dto.ExpenseUpdateDto;
 import com.expensetracker.dto.ReportResponse;
 
-import jakarta.validation.Valid;
 
 
 public interface ExpenseService {
@@ -28,4 +28,6 @@ public interface ExpenseService {
 	ReportResponse getThisMonthReport();
 	
 	ReportResponse getThisYearReport();
+	
+	DailyReport getMostRecentReport();
 }

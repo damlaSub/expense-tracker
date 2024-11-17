@@ -26,7 +26,7 @@ public class Expense {
 	@Column(name = "amount")
 	private Double amount;
 	
-	@Column(name = "added_at")
+	@Column(name = "added_at", nullable = false)
 	private LocalDate date;
 	
 	

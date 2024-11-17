@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.expensetracker.dto.DailyReport;
 import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
@@ -97,6 +98,21 @@ public class ExpenseServiceImpl implements ExpenseService{
 		
 	}
 	
+	@Override
+	public DailyReport getMostRecentReport() {
+	   
+	    List<ExpenseItem> dailyExpenses = expenseRepo.findMostRecentReport(getAccountId());
+	    double total = dailyExpenses.stream().mapToDouble(ExpenseItem::getAmount).sum();
+	    LocalDate date = dailyExpenses.isEmpty() ? null : dailyExpenses.get(0).getDate();
+	    
+	    DailyReport report =  new DailyReport();
+	    report.setDailyTotal(total);
+	    report.setDate(date);
+	    report.setExpenses(dailyExpenses);
+	    return report;
+	}
+
+	
 	 public ReportResponse getThisWeekReport() {
 		 return generateReport(getStartOfWeek(), getEndOfWeek() );
 	    }
@@ -112,7 +128,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    ReportResponse generateReport(LocalDate startDate, LocalDate endDate ) {
 	    	
 	    	List<ExpenseItem> expenseItems = expenseRepo.findExpenseItemsByDateRange(startDate, endDate, getAccountId());
-	    	
+
 	    	Map<String, Double> categoryTotals = expenseItems.stream()
 	        	    .collect(Collectors.groupingBy(ExpenseItem::getCategory, 
 	        	        Collectors.summingDouble(ExpenseItem::getAmount))); 
