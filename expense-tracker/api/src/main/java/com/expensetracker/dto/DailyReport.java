@@ -7,7 +7,7 @@ public class DailyReport {
 	
 	private LocalDate date;
 	
-	private List<ExpenseItem> expenses;
+	private List<DailyExpenseItem> expenses;
 	
 	private Double dailyTotal;
 
@@ -19,11 +19,11 @@ public class DailyReport {
 		this.date = date;
 	}
 
-	public List<ExpenseItem> getExpenses() {
+	public List<DailyExpenseItem> getExpenses() {
 		return expenses;
 	}
 
-	public void setExpenses(List<ExpenseItem> expenses) {
+	public void setExpenses(List<DailyExpenseItem> expenses) {
 		this.expenses = expenses;
 	}
 
@@ -39,5 +39,6 @@ public class DailyReport {
 	public String toString() {
 		return "DailyReport [date=" + date + ", expenses=" + expenses + ", dailyTotal=" + dailyTotal + "]";
 	}
+
 	
 }

@@ -22,11 +22,15 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
             "FROM Expense e WHERE e.date BETWEEN :startDate AND :endDate AND e.account.id = :accountId")
 	List<ExpenseItem> findExpenseItemsByDateRange(LocalDate startDate, LocalDate endDate, Long accountId);
 
-	@Query("SELECT e.id AS id, e.amount AS amount, e.description AS description, e.category AS category, e.date AS date " +
-		       "FROM Expense e " +
-		       "WHERE e.date = (SELECT MAX(e2.date) FROM Expense e2 WHERE e2.account.id = :accountId) " +
-		       "AND e.account.id = :accountId")
-		List<ExpenseItem> findMostRecentReport(@Param("accountId") Long accountId);
+	@Query("""
+		    SELECT e.date, e.id, e.description, e.category, e.amount 
+		    FROM Expense e
+		    WHERE e.date = (SELECT MAX(e2.date) 
+		                    FROM Expense e2 
+		                    WHERE e2.account.id = :accountId)
+		      AND e.account.id = :accountId
+		""")
+		List<Object[]> findMostRecentExpenses(@Param("accountId") Long accountId);
 
 	
 	
