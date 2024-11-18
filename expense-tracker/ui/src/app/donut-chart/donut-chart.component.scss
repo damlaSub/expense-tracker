@@ -10,4 +10,20 @@
     justify-content: center;
     align-items: center;
   }
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+  }
+  
+  .date-range {
+    margin-bottom: 10px;  
+    font-size: 0.8em;  
+  }
+  
+  p-chart {
+    width: 100%;  // Ensure the chart takes up the full width of its container
+    max-width: 500px;  // Optional: limit the maximum width of the chart for better responsiveness
+  }
+  
   

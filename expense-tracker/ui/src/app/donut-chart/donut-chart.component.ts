@@ -28,6 +28,8 @@ export class DonutChartComponent implements OnInit {
     'INVESTMENTS',
     'OTHER',
   ];
+  startDate: string = '';
+  endDate: string = '';
 
   constructor(private httpService: HttpService) {}
 
@@ -39,7 +41,6 @@ export class DonutChartComponent implements OnInit {
   fetchReportData() {
     this.httpService.get('expenses/reports-month').subscribe(
       (data) => {
-        console.log('Data received:', data);
         this.processReportData(data); 
       },
       (error) => {
@@ -55,6 +56,8 @@ export class DonutChartComponent implements OnInit {
     const totals = response.categoryTotals || {};
     const labels = Object.keys(totals);  // Get the categories
     const values = Object.values(totals); 
+    this.startDate = response.startDate;
+    this.endDate = response.endDate;
 
     // Update chart data
     this.data = {
@@ -95,7 +98,7 @@ export class DonutChartComponent implements OnInit {
     this.options = {
       plugins: {
         legend: {
-          position: 'top',
+          position: 'bottom',
         },
       },
       responsive: true,
