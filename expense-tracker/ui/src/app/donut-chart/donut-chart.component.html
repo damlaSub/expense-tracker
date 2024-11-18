@@ -1,4 +1,8 @@
 <div class="chart-container">
-    <p-chart type="doughnut" [data]="data" [options]="options" />
+  <p-chart
+    type="doughnut"
+    [data]="data"
+    [options]="options"
+    *ngIf="data">
+  </p-chart>
 </div>
-  
