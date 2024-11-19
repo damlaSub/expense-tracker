@@ -122,8 +122,8 @@ public class ExpenseServiceImpl implements ExpenseService{
 	            .toList();
 	    
 	    LocalDate date = (LocalDate) results.get(0)[0];
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
-	    String formattedDate = date.format(formatter);
+	    String formattedDate = formatDate(date);
+
 	    
 	    DailyReport report =  new DailyReport();
 	    double dailyTotal = expenses.stream().mapToDouble(DailyExpenseItem::getAmount).sum();
@@ -217,8 +217,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 	            LocalDate date = entry.getKey();
 	            List<DailyExpenseItem> expenses = entry.getValue();
 
-	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
-	            String formattedDate = date.format(formatter);
+	            String formattedDate = formatDate(date);
 
 	            DailyReport report = new DailyReport();
 	            double dailyTotal = expenses.stream().mapToDouble(DailyExpenseItem::getAmount).sum();
@@ -231,6 +230,11 @@ public class ExpenseServiceImpl implements ExpenseService{
 
 	        // Return the list of DailyReport objects
 	        return reports;
+	    }
+	    
+	    private String formatDate(LocalDate date) {
+	    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
+	    	return date.format(formatter);
 	    }
 
 
