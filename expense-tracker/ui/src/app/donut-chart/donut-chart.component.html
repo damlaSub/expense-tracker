@@ -1,8 +1,12 @@
 <div class="chart-container">
-  <h4>Expenses</h4>
-  <h6>{{periodTotal}} $ </h6>
-  <div class="date-range">
-    <p> {{ startDate }} - {{ endDate }} </p>
+  <div class="header">
+    <div class="header-left">
+      <h4 class="expenses-label">Expenses</h4>
+      <p class="date-range">{{ startDate }} - {{ endDate }}</p>
+    </div>
+    <div class="header-right">
+      <h4 class="period-total">{{ periodTotal }} $ </h4>
+    </div>
   </div>
   <p-chart
     type="doughnut"

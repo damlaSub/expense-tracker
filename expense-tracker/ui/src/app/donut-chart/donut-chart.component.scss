@@ -1,7 +1,6 @@
 /* donut-chart.component.scss */
 .chart-container {
     padding: 20px;
-    background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
    
@@ -25,5 +24,22 @@
     width: 100%;  
     max-width: 500px; 
   }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%; 
+    margin-bottom: 10px;
+  }
   
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
   
