@@ -1,0 +1,43 @@
+/* General adjustments for mobile-first */
+.main {
+    padding: 10px;
+  }
+  
+  .chart-container {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Responsive layout for larger screens */
+  @media (min-width: 768px) {
+    .container .row {
+      justify-content: center;
+    }
+  
+    .col-md-8,
+    .col-lg-6 {
+      max-width: 80%; /* Utilize more width for components */
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .container {
+      padding: 20px;
+    }
+  
+    .col-md-8,
+    .col-lg-6 {
+      max-width: 70%; /* Make content wider on large screens */
+    }
+  
+    .chart-container {
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+  }
+  

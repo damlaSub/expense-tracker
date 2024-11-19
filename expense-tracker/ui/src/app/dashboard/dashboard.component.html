@@ -1,5 +1,6 @@
 <main class="main">
   <div class="content">
+    <!-- Navbar -->
     <nav class="navbar bg-transparent px-3 border-0">
       <img src="images/favicon-32x32.png" alt="App Icon" class="app-icon" />
       <div class="btn-group">
@@ -9,6 +10,7 @@
       </div>
     </nav>
 
+    <!-- Greeting & Time Period Selection -->
     <div class="d-flex justify-content-between align-items-center py-3">
       <div class="d-flex align-items-center">
         <button class="btn btn-light rounded-circle">
@@ -38,24 +40,26 @@
     </div>
   </div>
 
+  <!-- Donut Chart -->
   <div class="container py-4">
     <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4">
+      <div class="col-12 col-md-8 col-lg-6">
         <app-donut-chart [timePeriod]="selectedTimePeriod"></app-donut-chart>
       </div>
     </div>
   </div>
 
+  <!-- Daily Expenses List -->
   <div class="container py-4">
-    <h4 class="text-center">Expense List </h4>
+    <h4 class="text-center">Expense List</h4>
     <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4">
+      <div class="col-12 col-md-8 col-lg-6">
         <app-daily-expenses-list></app-daily-expenses-list>
       </div>
     </div>
   </div>
 
-
+  <!-- Bottom Navigation -->
   <div class="d-flex justify-content-around align-items-center bg-transparent p-2 position-fixed bottom-0 w-100 border-0">
     <button class="btn btn-light rounded-circle"><i class="bi bi-house"></i></button>
     <button class="btn btn-light rounded-circle"><i class="bi bi-bar-chart-line"></i></button>
@@ -64,5 +68,4 @@
     <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
     <button class="btn btn-light rounded-circle"><i class="bi bi-person"></i></button>
   </div>
-
 </main>
