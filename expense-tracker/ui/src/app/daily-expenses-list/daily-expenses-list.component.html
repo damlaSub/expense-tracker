@@ -8,7 +8,7 @@
   
     <!-- Message when no expenses are recorded -->
     <div *ngIf="expenses.length === 0" class="text-center mt-3">
-      <p>No expenses recorded for today.</p>
+      <p>No expenses recorded</p>
     </div>
   
     <!-- Expenses list -->
@@ -16,7 +16,11 @@
       <ul class="list-group">
         <li *ngFor="let expense of expenses" 
             class="list-group-item d-flex justify-content-between align-items-center px-3">
-          <span class="text-muted">{{ expense.category }}</span>
+            <span class="text-muted d-flex align-items-center">
+                <!-- Display category icon -->
+                <i class="me-2 bi" [ngClass]="getIconForCategory(expense.category)"></i>
+                {{ expense.category }}
+              </span>
           <span>{{ expense.description || '' }}</span>
           <span>{{ expense.amount }} <i class="bi bi-currency-euro"></i></span>
         </li>

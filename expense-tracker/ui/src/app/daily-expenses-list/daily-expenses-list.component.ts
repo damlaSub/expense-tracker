@@ -14,6 +14,23 @@ export class DailyExpensesListComponent implements OnInit {
   dailyTotal: number = 0;
   formattedDate: string = '';
 
+  // Mapping categories to icons
+  categoryIcons: { [key: string]: string } = {
+    FOOD: 'bi-basket',
+    TRAVEL: 'bi-airplane',
+    ENTERTAINMENT: 'bi-film',
+    UTILITIES: 'bi-lightbulb',
+    HEALTH: 'bi-heart-pulse',
+    GROCERIES: 'bi-cart4',
+    TRANSPORTATION: 'bi-bus-front',
+    EDUCATION: 'bi-book',
+    PERSONAL_CARE: 'bi-person',
+    SHOPPING: 'bi-bag',
+    BILLS: 'bi-credit-card',
+    INVESTMENTS: 'bi-graph-up',
+    OTHER: 'bi-box-seam'
+  };
+
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
@@ -32,5 +49,9 @@ export class DailyExpensesListComponent implements OnInit {
     this.formattedDate = response.formattedDate;
     this.expenses = response.expenses;
     this.dailyTotal = response.dailyTotal;
+  }
+
+  getIconForCategory(category: string): string {
+    return this.categoryIcons[category] || 'bi-question-circle'; // Default icon for unknown categories
   }
 }
