@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalizationService } from '../services/localization.service';
 import { DonutChartComponent } from '../donut-chart/donut-chart.component';
+import { DailyExpensesListComponent } from '../daily-expenses-list/daily-expenses-list.component';
+
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, DonutChartComponent],
+  imports: [CommonModule, DonutChartComponent, DailyExpensesListComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
