@@ -1,65 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpService } from '../services/http.service';
-import { ChartModule } from 'primeng/chart'; 
-import { CommonModule } from '@angular/common'; 
+import { ChartModule } from 'primeng/chart';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-donut-chart',
-  standalone: true,  
-  imports: [CommonModule, ChartModule],  //  CommonModule for ngIf and ChartModule for <p-chart>
+  standalone: true,
+  imports: [CommonModule, ChartModule],
   templateUrl: './donut-chart.component.html',
   styleUrls: ['./donut-chart.component.scss'],
 })
-export class DonutChartComponent implements OnInit {
+export class DonutChartComponent implements OnChanges {
+  @Input() timePeriod: string = 'month'; 
   data: any;
   options: any;
-  categories: string[] = [
-    'FOOD',
-    'TRAVEL',
-    'ENTERTAINMENT',
-    'UTILITIES',
-    'HEALTH',
-    'GROCERIES',
-    'TRANSPORTATION',
-    'EDUCATION',
-    'PERSONAL_CARE',
-    'SHOPPING',
-    'BILLS',
-    'INVESTMENTS',
-    'OTHER',
-  ];
   startDate: string = '';
   endDate: string = '';
 
   constructor(private httpService: HttpService) {}
 
-  ngOnInit(): void {
-    this.fetchReportData();
-    this.initializeChartOptions();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['timePeriod'] && changes['timePeriod'].currentValue) {
+      this.fetchReportData();
+    }
   }
 
   fetchReportData() {
-    this.httpService.get('expenses/reports-month').subscribe(
-      (data) => {
-        this.processReportData(data); 
-      },
-      (error) => {
-        console.error('Error occurred:', error);
-      },
-      () => {
-        console.log('Request complete');
-      }
+    const endpoint = `expenses/reports-${this.timePeriod}`;
+    this.httpService.get(endpoint).subscribe(
+      (data) => this.processReportData(data),
+      (error) => console.error('Error occurred:', error)
     );
   }
 
   processReportData(response: any) {
     const totals = response.categoryTotals || {};
-    const labels = Object.keys(totals);  // Get the categories
-    const values = Object.values(totals); 
+    const labels = Object.keys(totals);
+    const values = Object.values(totals);
     this.startDate = response.startDate;
     this.endDate = response.endDate;
 
-    // Update chart data
     this.data = {
       labels: labels,
       datasets: [
@@ -92,16 +72,5 @@ export class DonutChartComponent implements OnInit {
     return labels.map((label) =>
       hover ? `${baseColors[label]}A0` : baseColors[label]
     );
-  }
-
-  initializeChartOptions() {
-    this.options = {
-      plugins: {
-        legend: {
-          position: 'bottom',
-        },
-      },
-      responsive: true,
-    };
   }
 }
