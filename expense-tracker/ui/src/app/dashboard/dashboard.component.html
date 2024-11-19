@@ -1,6 +1,5 @@
 <main class="main">
   <div class="content">
-    <!-- Navbar -->
     <nav class="navbar bg-transparent px-3 border-0">
       <img src="images/favicon-32x32.png" alt="App Icon" class="app-icon" />
       <div class="btn-group">
@@ -11,61 +10,65 @@
     </nav>
 
     <!-- Greeting & Time Period Selection -->
-    <div class="d-flex justify-content-between align-items-center py-3">
-      <div class="d-flex align-items-center">
-        <button class="btn btn-light rounded-circle">
-          <i class="bi bi-person-circle"></i>
-        </button>
-        <div class="ms-3 d-flex flex-column">
-          <span>Hello</span>
-          <span>{{ userName }}</span>
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="d-flex justify-content-between align-items-center py-3">
+            <div class="d-flex align-items-center">
+              <button class="btn btn-light rounded-circle">
+                <i class="bi bi-person-circle"></i>
+              </button>
+              <div class="ms-3 d-flex flex-column">
+                <span>Hello</span>
+                <span>{{ userName }}</span>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{ selectedTimePeriod | titlecase }}
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" (click)="updateTimePeriod('week')">This week</a></li>
+                <li><a class="dropdown-item" (click)="updateTimePeriod('month')">This month</a></li>
+                <li><a class="dropdown-item" (click)="updateTimePeriod('year')">This year</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="btn-group">
-        <button
-          class="btn dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          {{ selectedTimePeriod | titlecase }}
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" (click)="updateTimePeriod('week')">This week</a></li>
-          <li><a class="dropdown-item" (click)="updateTimePeriod('month')">This month</a></li>
-          <li><a class="dropdown-item" (click)="updateTimePeriod('year')">This year</a></li>
-        </ul>
+    <!-- Donut Chart -->
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <app-donut-chart [timePeriod]="selectedTimePeriod"></app-donut-chart>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Donut Chart -->
-  <div class="container py-4">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8 col-lg-6">
-        <app-donut-chart [timePeriod]="selectedTimePeriod"></app-donut-chart>
+    <!-- Daily Expenses List -->
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <app-daily-expenses-list></app-daily-expenses-list>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Daily Expenses List -->
-  <div class="container py-4">
-    <h4 class="text-center">Expense List</h4>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8 col-lg-6">
-        <app-daily-expenses-list></app-daily-expenses-list>
-      </div>
+    <div class="d-flex justify-content-around align-items-center bg-transparent p-2 position-fixed bottom-0 w-100 border-0">
+      <button class="btn btn-light rounded-circle"><i class="bi bi-house"></i></button>
+      <button class="btn btn-light rounded-circle"><i class="bi bi-bar-chart-line"></i></button>
+      <button class="btn btn-light rounded-circle"><i class="bi bi-gear"></i></button>
+      <button class="btn btn-light rounded-circle"><i class="bi bi-plus-circle"></i></button>
+      <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
+      <button class="btn btn-light rounded-circle"><i class="bi bi-person"></i></button>
     </div>
-  </div>
-
-  <!-- Bottom Navigation -->
-  <div class="d-flex justify-content-around align-items-center bg-transparent p-2 position-fixed bottom-0 w-100 border-0">
-    <button class="btn btn-light rounded-circle"><i class="bi bi-house"></i></button>
-    <button class="btn btn-light rounded-circle"><i class="bi bi-bar-chart-line"></i></button>
-    <button class="btn btn-light rounded-circle"><i class="bi bi-gear"></i></button>
-    <button class="btn btn-light rounded-circle"><i class="bi bi-plus-circle"></i></button>
-    <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
-    <button class="btn btn-light rounded-circle"><i class="bi bi-person"></i></button>
   </div>
 </main>
