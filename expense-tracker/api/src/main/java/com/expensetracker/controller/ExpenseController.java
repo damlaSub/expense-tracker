@@ -38,6 +38,11 @@ public class ExpenseController {
 		return service.getAllByAccount();
 	}
 	
+	@GetMapping("/by-date")
+    public List<DailyReport> getExpensesByDate() {
+        return service.getAllByAccountIdOrderByDate();
+    }
+	
 	@PostMapping("/add")
     @ResponseStatus(HttpStatus.NO_CONTENT)
 	public void add(@Valid @RequestBody ExpenseCreateDto inputs) {

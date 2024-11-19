@@ -3,6 +3,9 @@ package com.expensetracker.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -179,6 +182,58 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    private LocalDate getEndOfYear() {
 	        return LocalDate.now().with(TemporalAdjusters.lastDayOfYear());
 	    }
+
+	    @Override
+	    public List<DailyReport> getAllByAccountIdOrderByDate() {
+	        // Fetch the grouped expense data ordered by date
+	        List<Object[]> results = expenseRepo.findExpensesOrderByDateWithDetails(getAccountId());
+	        
+	        if (results.isEmpty()) {
+	            return Collections.emptyList();  // Return an empty list if no results
+	        }
+
+	        // Create a map to store the expenses grouped by date
+	        Map<LocalDate, List<DailyExpenseItem>> groupedByDate = new HashMap<>();
+
+	        // Iterate over the results and group them by date
+	        for (Object[] row : results) {
+	            Long id = (Long) row[0];           
+	            LocalDate date = (LocalDate) row[1]; 
+	            String description = (String) row[2]; 
+	            String category = (String) row[3];    
+	            Double amount = (Double) row[4];     
+
+	            DailyExpenseItem item = new DailyExpenseItem(id, description, category, amount);
+
+	            // Add the expense item to the appropriate date group
+	            groupedByDate.computeIfAbsent(date, k -> new ArrayList<>()).add(item);
+	        }
+
+	        // Convert the map to a list of DailyReport objects
+	        List<DailyReport> reports = new ArrayList<>();
+	        
+	        // Format the date and create the DailyReport for each grouped date
+	        for (Map.Entry<LocalDate, List<DailyExpenseItem>> entry : groupedByDate.entrySet()) {
+	            LocalDate date = entry.getKey();
+	            List<DailyExpenseItem> expenses = entry.getValue();
+
+	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
+	            String formattedDate = date.format(formatter);
+
+	            DailyReport report = new DailyReport();
+	            double dailyTotal = expenses.stream().mapToDouble(DailyExpenseItem::getAmount).sum();
+	            report.setFormattedDate(formattedDate);
+	            report.setDailyTotal(dailyTotal);
+	            report.setExpenses(expenses);
+
+	            reports.add(report);
+	        }
+
+	        // Return the list of DailyReport objects
+	        return reports;
+	    }
+
+
 
 	
 }

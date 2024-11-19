@@ -32,6 +32,15 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 		""")
 		List<Object[]> findMostRecentExpenses(@Param("accountId") Long accountId);
 
+		@Query("""
+			    SELECT e.id AS id, e.date AS date, e.description AS description, e.category AS category, e.amount AS amount
+			    FROM Expense e
+			    WHERE e.account.id = :accountId
+			    ORDER BY e.date ASC
+			    """)
+			List<Object[]> findExpensesOrderByDateWithDetails(@Param("accountId") Long accountId);
+
+
 	
 	
 

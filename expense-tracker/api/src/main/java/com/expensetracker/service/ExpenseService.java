@@ -30,4 +30,6 @@ public interface ExpenseService {
 	ReportResponse getThisYearReport();
 	
 	DailyReport getMostRecentReport();
+
+	List<DailyReport> getAllByAccountIdOrderByDate();
 }
