@@ -113,12 +113,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    }
 	    
 	    List<DailyExpenseItem> expenses = results.stream()
-	            .map(row -> new DailyExpenseItem(
-	                (Long) row[1],        
-	                (String) row[2],      
-	                (String) row[3],      
-	                (Double) row[4]       
-	            ))
+	            .map(row -> createExpenseItem(row))
 	            .toList();
 	    
 	    LocalDate date = (LocalDate) results.get(0)[0];
@@ -197,13 +192,10 @@ public class ExpenseServiceImpl implements ExpenseService{
 
 	        // Iterate over the results and group them by date
 	        for (Object[] row : results) {
-	            Long id = (Long) row[0];           
-	            LocalDate date = (LocalDate) row[1]; 
-	            String description = (String) row[2]; 
-	            String category = (String) row[3];    
-	            Double amount = (Double) row[4];     
+	              
 
-	            DailyExpenseItem item = new DailyExpenseItem(id, description, category, amount);
+	            DailyExpenseItem item = createExpenseItem(row);
+	            LocalDate date = (LocalDate) row[0];
 
 	            // Add the expense item to the appropriate date group
 	            groupedByDate.computeIfAbsent(date, k -> new ArrayList<>()).add(item);
@@ -235,6 +227,15 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    private String formatDate(LocalDate date) {
 	    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
 	    	return date.format(formatter);
+	    }
+	    
+	    private DailyExpenseItem createExpenseItem(Object[] row) {
+	        Long id = (Long) row[1];          
+	        String description = (String) row[2]; 
+	        String category = (String) row[3];   
+	        Double amount = (Double) row[4];      
+
+	        return new DailyExpenseItem(id, description, category, amount);
 	    }
 
 
