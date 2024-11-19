@@ -16,6 +16,7 @@ export class DonutChartComponent implements OnChanges {
   options: any;
   startDate: string = '';
   endDate: string = '';
+  periodTotal: number = 0;
 
   constructor(private httpService: HttpService) {}
 
@@ -40,6 +41,7 @@ export class DonutChartComponent implements OnChanges {
     const values = Object.values(totals);
     this.startDate = response.startDate;
     this.endDate = response.endDate;
+    this.periodTotal = response.periodTotal;
 
     this.data = {
       labels: labels,
