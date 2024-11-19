@@ -1,6 +1,7 @@
 package com.expensetracker.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Map;
@@ -118,10 +119,13 @@ public class ExpenseServiceImpl implements ExpenseService{
 	            .toList();
 	    
 	    LocalDate date = (LocalDate) results.get(0)[0];
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
+	    String formattedDate = date.format(formatter);
+	    
 	    DailyReport report =  new DailyReport();
 	    double dailyTotal = expenses.stream().mapToDouble(DailyExpenseItem::getAmount).sum();
 	    report.setDailyTotal(dailyTotal);
-	    report.setDate(date);
+	    report.setFormattedDate(formattedDate);
 	    report.setExpenses(expenses);
 	    return report;
 	}

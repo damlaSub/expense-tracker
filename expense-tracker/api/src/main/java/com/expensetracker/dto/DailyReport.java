@@ -1,22 +1,22 @@
 package com.expensetracker.dto;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 public class DailyReport {
 	
-	private LocalDate date;
+	 private String formattedDate;;
 	
 	private List<DailyExpenseItem> expenses;
 	
 	private Double dailyTotal;
 
-	public LocalDate getDate() {
-		return date;
+	public String getFormattedDate() {
+		return formattedDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setFormattedDate(String formattedDate) {
+		this.formattedDate = formattedDate;
 	}
 
 	public List<DailyExpenseItem> getExpenses() {
@@ -37,8 +37,11 @@ public class DailyReport {
 
 	@Override
 	public String toString() {
-		return "DailyReport [date=" + date + ", expenses=" + expenses + ", dailyTotal=" + dailyTotal + "]";
+		return "DailyReport [formattedDate=" + formattedDate + ", expenses=" + expenses + ", dailyTotal=" + dailyTotal
+				+ "]";
 	}
+
+	
 
 	
 }

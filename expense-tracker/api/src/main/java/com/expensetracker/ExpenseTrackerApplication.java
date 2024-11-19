@@ -13,7 +13,7 @@ public class ExpenseTrackerApplication {
     }
     
     @Bean
-    public CommandLineRunner showSwaggerEndpoint() {
+    CommandLineRunner showSwaggerEndpoint() {
         return args -> {
             String swaggerUrl = "http://localhost:8080/swagger-ui/index.html";
             System.out.println("\n\n=============================");
