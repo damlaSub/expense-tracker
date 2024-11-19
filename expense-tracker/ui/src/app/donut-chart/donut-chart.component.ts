@@ -22,6 +22,7 @@ export class DonutChartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['timePeriod'] && changes['timePeriod'].currentValue) {
       this.fetchReportData();
+      this.initializeChartOptions();
     }
   }
 
@@ -72,5 +73,15 @@ export class DonutChartComponent implements OnChanges {
     return labels.map((label) =>
       hover ? `${baseColors[label]}A0` : baseColors[label]
     );
+  }
+  initializeChartOptions() {
+    this.options = {
+      plugins: {
+        legend: {
+          position: 'bottom',
+        },
+      },
+      responsive: true,
+    };
   }
 }
