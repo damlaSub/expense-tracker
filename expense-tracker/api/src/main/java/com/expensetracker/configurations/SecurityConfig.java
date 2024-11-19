@@ -55,7 +55,7 @@ public class SecurityConfig {
         http.cors(corsCustomizer())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-            		.requestMatchers("/account/sign-up", "/account/sign-in", "/account/refresh-token").permitAll() 
+            		.requestMatchers("/account/sign-up", "/account/sign-in", "/account/refresh-token", "/swagger-ui/**", "/v3/api-docs/**").permitAll() 
             		.requestMatchers("/expenses/**").authenticated()
             		.anyRequest().authenticated()
                     )
