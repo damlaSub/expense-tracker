@@ -142,12 +142,14 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    ReportResponse generateReport(LocalDate startDate, LocalDate endDate ) {
 	    	
 	    	List<ExpenseItem> expenseItems = expenseRepo.findExpenseItemsByDateRange(startDate, endDate, getAccountId());
+	    	
+	    	double periodTotal = expenseItems.stream().collect(Collectors.summingDouble(ExpenseItem::getAmount));
 
 	    	Map<String, Double> categoryTotals = expenseItems.stream()
 	        	    .collect(Collectors.groupingBy(ExpenseItem::getCategory, 
 	        	        Collectors.summingDouble(ExpenseItem::getAmount))); 
 	    	
-	    	return new ReportResponse(startDate, endDate, categoryTotals);
+	    	return new ReportResponse(startDate, endDate, categoryTotals, periodTotal);
 	    }
 	    
 	    private LocalDate getStartOfWeek() {
