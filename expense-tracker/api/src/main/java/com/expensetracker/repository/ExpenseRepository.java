@@ -3,6 +3,7 @@ package com.expensetracker.repository;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,10 +12,9 @@ import com.expensetracker.dto.ExpenseForUpdate;
 import com.expensetracker.dto.ExpenseItem;
 import com.expensetracker.entities.Expense;
 
-
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
-	List<ExpenseItem> findByAccountId(Long currentAccountId);
+	List<ExpenseItem> findByAccountId(Long currentAccountId, Pageable pageable);
 
 	ExpenseForUpdate findProjectedById(Long id);
 	

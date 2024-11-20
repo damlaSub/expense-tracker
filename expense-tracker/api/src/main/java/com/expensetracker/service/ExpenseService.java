@@ -2,6 +2,8 @@ package com.expensetracker.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.expensetracker.dto.DailyReport;
 import com.expensetracker.dto.ExpenseCreateDto;
 import com.expensetracker.dto.ExpenseForUpdate;
@@ -10,10 +12,9 @@ import com.expensetracker.dto.ExpenseUpdateDto;
 import com.expensetracker.dto.ReportResponse;
 
 
-
 public interface ExpenseService {
 
-	List<ExpenseItem> getAllByAccount();
+	List<ExpenseItem> getAllByAccount(Pageable pageable);
 
 	void add(ExpenseCreateDto inputs);
 	
@@ -32,4 +33,5 @@ public interface ExpenseService {
 	DailyReport getMostRecentReport();
 
 	List<DailyReport> getAllByAccountIdOrderByDate();
+
 }

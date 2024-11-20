@@ -1,4 +1,7 @@
 package com.expensetracker.service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -56,8 +59,8 @@ public class ExpenseServiceImpl implements ExpenseService{
 	}
 
 	@Override
-	public List<ExpenseItem> getAllByAccount() {
-		return expenseRepo.findByAccountId(getAccountId());
+	public List<ExpenseItem> getAllByAccount(Pageable pageable) {
+		return expenseRepo.findByAccountId(getAccountId(), pageable);
 	}
 	
 	Long getAccountId() {
