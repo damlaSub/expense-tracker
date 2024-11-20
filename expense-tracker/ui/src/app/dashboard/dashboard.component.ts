@@ -31,4 +31,9 @@ export class DashboardComponent implements OnInit {
   updateTimePeriod(period: string) {
     this.selectedTimePeriod = period; 
   }
+
+  navigateToAllExpenses(){
+    console.log('click')
+    this.router.navigate(['/expenses']);
+  }
 }

@@ -18,7 +18,7 @@
     },
     "dashboard": {
         "account": "My account",
-        "dash" : "dash..."
+        "showAll" : "Show All"
     }
   }
   
