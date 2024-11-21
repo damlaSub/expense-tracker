@@ -32,6 +32,6 @@ public interface ExpenseService {
 	
 	DailyReport getMostRecentReport();
 
-	List<DailyReport> getAllByAccountIdOrderByDate();
+	List<DailyReport> getAllByAccountIdOrderByDate(Pageable pageable);
 
 }

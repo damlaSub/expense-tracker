@@ -45,8 +45,11 @@ public class ExpenseController {
 	}
 	
 	@GetMapping("/by-date")
-    public List<DailyReport> getExpensesByDate() {
-        return service.getAllByAccountIdOrderByDate();
+    public List<DailyReport> getExpensesByDate(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+		    @RequestParam(value = "size", defaultValue = "10") int size) {
+		Pageable pageable = PageRequest.of(page, size);
+        return service.getAllByAccountIdOrderByDate(pageable);
     }
 	
 	@PostMapping("/add")

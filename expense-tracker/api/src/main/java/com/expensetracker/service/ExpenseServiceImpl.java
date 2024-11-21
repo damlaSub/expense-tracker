@@ -182,9 +182,9 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    }
 
 	    @Override
-	    public List<DailyReport> getAllByAccountIdOrderByDate() {
+	    public List<DailyReport> getAllByAccountIdOrderByDate(Pageable pageable) {
 	        // Fetch the grouped expense data ordered by date
-	        List<Object[]> results = expenseRepo.findExpensesOrderByDateWithDetails(getAccountId());
+	        List<Object[]> results = expenseRepo.findExpensesOrderByDateWithDetails(getAccountId(), pageable);
 	        
 	        if (results.isEmpty()) {
 	            return Collections.emptyList();  // Return an empty list if no results

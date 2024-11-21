@@ -38,7 +38,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 			    WHERE e.account.id = :accountId
 			    ORDER BY e.date ASC
 			    """)
-			List<Object[]> findExpensesOrderByDateWithDetails(@Param("accountId") Long accountId);
+			List<Object[]> findExpensesOrderByDateWithDetails(@Param("accountId") Long accountId, Pageable pageable);
 
 
 	
