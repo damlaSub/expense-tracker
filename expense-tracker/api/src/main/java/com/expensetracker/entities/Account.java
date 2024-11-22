@@ -11,12 +11,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class Account extends AbstractEntity {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
 	
 	 @Column(name = "first_name")
 	    private String firstName;
@@ -34,13 +30,6 @@ public class Account {
 		super();
 	    }
 
-		public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
 
 		public String getFirstName() {
 			return firstName;
@@ -76,7 +65,7 @@ public class Account {
 
 		@Override
 		public String toString() {
-			return "Account [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+			return "Account [ firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 					+ ", password=" + password + "]";
 		}
 

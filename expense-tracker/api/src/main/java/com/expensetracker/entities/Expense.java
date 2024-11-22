@@ -16,13 +16,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "expenses")
-public class Expense {
+public class Expense extends AbstractEntity {
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	
 	@Column(name = "amount")
 	private Double amount;
 	
@@ -47,19 +42,10 @@ public class Expense {
 
 	@Override
 	public String toString() {
-		return "Expense [id=" + id + ", amount=" + amount + ", date=" + date + ", category=" + category + ", account="
+		return "Expense [ amount=" + amount + ", date=" + date + ", category=" + category + ", account="
 				+ account + ", description=" + description + "]";
 	}
 
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 	public Double getAmount() {
@@ -114,7 +100,7 @@ public class Expense {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(getId());
 	}
 
 
@@ -127,6 +113,6 @@ public class Expense {
 		if (getClass() != obj.getClass())
 			return false;
 		Expense other = (Expense) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(getId(), other.getId());
 	}
 }
