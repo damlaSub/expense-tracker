@@ -16,15 +16,16 @@
       <li *ngFor="let expense of expenses" class="list-group-item d-flex flex-column text-start px-3">
         <!-- Icon and category -->
         <div class="d-flex justify-content-between w-100">
-          <span class="text-muted d-flex align-items-center" style="width: 25%;">
-            <i class="me-2 bi" [ngClass]="getIconForCategory(expense.category)"></i>
+          <span class="text-muted d-inline-block" style="width: 25%; white-space: nowrap;">
+            <!-- Updated icon display -->
+            <i class="me-2 bi" [ngClass]="getIconForCategory(expense.category)" style="font-size: 1.5rem;"></i>
             {{ expense.category }}
           </span>
           <span style="width: 20%; text-align: right;">
             {{ expense.amount }} <i class="bi bi-currency-euro"></i>
           </span>
         </div>
-        <!-- Description (only if exists && is true) -->
+        <!-- Description (only if exists & is true) -->
         <div *ngIf="showDescription && expense.description" class="w-100 text-muted mt-2">
           {{ expense.description }}
         </div>
