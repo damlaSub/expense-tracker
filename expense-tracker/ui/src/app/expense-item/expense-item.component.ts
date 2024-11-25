@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ExpenseItemComponent {
 
+  @Input() expense: { category: string; description?: string; amount: number } = { category: '', amount: 0 };
   @Input() formattedDate: string = '';
   @Input() dailyTotal: number = 0;
   @Input() expenses: Array<{ category: string; description?: string; amount: number }> = [];

@@ -1,3 +1,4 @@
+<!-- all-expenses.component.html -->
 <main class="main py-4 px-3">
   <div
     class="expenses-list"
@@ -8,21 +9,15 @@
     (scrolled)="onScroll()"
   >
     <div *ngFor="let report of expensesReports">
-
-      <!-- Expenses list -->
-      <div *ngIf="report.expenses.length > 0" class="mt-3">
-        <ul class="list-group">
-          <app-expense-item
-            *ngFor="let expense of report.expenses"
-            [expenses]="report.expenses" 
-            [getIconForCategory]="getIconForCategory"
-            [showDescription]="true"
-            [formattedDate]="report.formattedDate" 
-            [dailyTotal]="report.dailyTotal" 
-
-          ></app-expense-item>
-        </ul>
-      </div>
+      <!-- Render expense item for each date and its expenses -->
+      <app-expense-item
+        *ngIf="report.expenses.length > 0"
+        [formattedDate]="report.formattedDate"
+        [dailyTotal]="report.dailyTotal"
+        [expenses]="report.expenses"
+        [getIconForCategory]="getIconForCategory"
+        [showDescription]="true"
+      ></app-expense-item>
     </div>
   </div>
 </main>

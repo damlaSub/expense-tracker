@@ -18,6 +18,7 @@ export class AllExpensesComponent  implements OnInit {
   constructor(private router: Router, private localizationService: LocalizationService, private httpService: HttpService) {}
   expensesReports: any[] = [];
   expenses: any[] = [];
+  expense: any;
   dailyTotal: number = 0;
   formattedDate: string = '';
   getIconForCategory(category: string): string {
