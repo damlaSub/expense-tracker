@@ -17,6 +17,12 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 export class AllExpensesComponent  implements OnInit {
   constructor(private router: Router, private localizationService: LocalizationService, private httpService: HttpService) {}
   expensesReports: any[] = [];
+  expenses: any[] = [];
+  dailyTotal: number = 0;
+  formattedDate: string = '';
+  getIconForCategory(category: string): string {
+    return this.categoryIcons[category] || 'bi-question-circle'; 
+  }
   page: number = 0; 
   pageSize: number = 10; 
   isMoreItem: boolean = true;
@@ -47,9 +53,6 @@ export class AllExpensesComponent  implements OnInit {
     return this.localizationService.translate(key);
   }
 
-  getIconForCategory(category: string): string {
-    return this.categoryIcons[category] || 'bi-question-circle'; 
-  }
 
 
   fetchAllExpenses(page: number): void {
