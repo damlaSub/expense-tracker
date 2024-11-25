@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../services/http.service';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,11 +8,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './expense-item.component.html',
   styleUrl: './expense-item.component.scss'
 })
-export class ExpenseItemComponent  implements OnInit {
+export class ExpenseItemComponent {
 
-  expenses: any[] = [];
-  dailyTotal: number = 0;
-  formattedDate: string = '';
+  @Input() formattedDate: string = '';
+  @Input() dailyTotal: number = 0;
+  @Input() expenses: Array<{ category: string; description?: string; amount: number }> = [];
+  @Input() showDescription: boolean = true;
+  @Input() getIconForCategory: (category: string) => string = () => 'bi-question-circle';
 
   // Mapping categories to icons
   categoryIcons: { [key: string]: string } = {
@@ -32,27 +33,4 @@ export class ExpenseItemComponent  implements OnInit {
     OTHER: 'bi-box-seam'
   };
 
-  constructor(private httpService: HttpService) {}
-
-  ngOnInit(): void {
-    this.fetchDailyExpenses();
-  }
-
-  fetchDailyExpenses(): void {
-    const endpoint = 'expenses/reports-day';
-    this.httpService.get(endpoint).subscribe(
-      (data: any) => this.processDailyExpensesData(data),
-      (error) => console.error('Error fetching daily expenses:', error)
-    );
-  }
-
-  processDailyExpensesData(response: any): void {
-    this.formattedDate = response.formattedDate;
-    this.expenses = response.expenses;
-    this.dailyTotal = response.dailyTotal;
-  }
-
-  getIconForCategory(category: string): string {
-    return this.categoryIcons[category] || 'bi-question-circle'; // Default icon for unknown categories
-  }
 }

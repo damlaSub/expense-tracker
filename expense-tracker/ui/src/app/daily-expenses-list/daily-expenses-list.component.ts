@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { CommonModule } from '@angular/common';
+import { ExpenseItemComponent } from '../expense-item/expense-item.component';
 
 @Component({
   selector: 'app-daily-expenses-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ExpenseItemComponent],
   templateUrl: './daily-expenses-list.component.html',
   styleUrl: './daily-expenses-list.component.scss'
 })
@@ -13,6 +14,9 @@ export class DailyExpensesListComponent implements OnInit {
   expenses: any[] = [];
   dailyTotal: number = 0;
   formattedDate: string = '';
+  getIconForCategory(category: string): string {
+    return this.categoryIcons[category] || 'bi-question-circle'; 
+  }
 
   // Mapping categories to icons
   categoryIcons: { [key: string]: string } = {
@@ -46,12 +50,11 @@ export class DailyExpensesListComponent implements OnInit {
   }
 
   processDailyExpensesData(response: any): void {
-    this.formattedDate = response.formattedDate;
-    this.expenses = response.expenses;
-    this.dailyTotal = response.dailyTotal;
+  this.formattedDate = response?.formattedDate || ''; 
+  this.expenses = response?.expenses || [];          
+  this.dailyTotal = response?.dailyTotal || 0;  
+  
   }
 
-  getIconForCategory(category: string): string {
-    return this.categoryIcons[category] || 'bi-question-circle'; // Default icon for unknown categories
-  }
+  
 }
