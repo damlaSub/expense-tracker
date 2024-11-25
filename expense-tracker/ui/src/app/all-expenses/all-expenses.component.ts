@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { LocalizationService } from '../services/localization.service';
 import { HttpService } from '../services/http.service';
 import { CommonModule } from '@angular/common';
-
+import { ExpenseItemComponent } from '../expense-item/expense-item.component';
 import { DailyExpensesListComponent } from '../daily-expenses-list/daily-expenses-list.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-all-expenses',
   standalone: true,
-  imports: [CommonModule, DailyExpensesListComponent, InfiniteScrollDirective ],
+  imports: [CommonModule, DailyExpensesListComponent, InfiniteScrollDirective, ExpenseItemComponent ],
   templateUrl: './all-expenses.component.html',
   styleUrl: './all-expenses.component.scss'
 })
