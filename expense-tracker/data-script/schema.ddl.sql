@@ -6,7 +6,8 @@ CREATE TABLE accounts (
 	first_name VARCHAR(100) NOT NULL,
 	last_name VARCHAR(100) NOT NULL,
 	email VARCHAR(100) UNIQUE NOT NULL,
-	password VARCHAR(100) NOT NULL
+	password VARCHAR(100) NOT NULL,
+	expense_limit NUMERIC(6, 2) DEFAULT 0 NOT NULL
 );
 
 
@@ -18,3 +19,5 @@ CREATE TABLE expenses (
 	category VARCHAR(100) NOT NULL,
 	added_at DATE NOT NULL
 );
+
+
