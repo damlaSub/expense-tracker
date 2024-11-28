@@ -1,6 +1,4 @@
 package com.expensetracker.service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
@@ -33,6 +31,7 @@ import com.expensetracker.entities.Expense;
 import com.expensetracker.error.AccountNotFoundException;
 import com.expensetracker.repository.AccountRepository;
 import com.expensetracker.repository.ExpenseRepository;
+import com.expensetracker.util.WebSocket;
 
 @Service
 @Transactional(readOnly = true)
@@ -40,10 +39,12 @@ public class ExpenseServiceImpl implements ExpenseService{
 
 	private final ExpenseRepository expenseRepo;
 	private final AccountRepository accountRepo;
+	private final WebSocket webSocket;
 	
-	public ExpenseServiceImpl(ExpenseRepository expenseRepo, AccountRepository accountRepo) {
+	public ExpenseServiceImpl(ExpenseRepository expenseRepo, AccountRepository accountRepo, WebSocket webSocket) {
 		this.expenseRepo = expenseRepo;
 		this.accountRepo = accountRepo;
+		this.webSocket = webSocket;
 	}
 	
 	@Transactional
@@ -56,6 +57,22 @@ public class ExpenseServiceImpl implements ExpenseService{
 		expense.setAccount(getAccount(getAccountId()));
 		expense.setDate(LocalDate.now());
 		expenseRepo.save(expense);
+		notifyIfExpenseLimitExceeded(getAccountId());
+	}
+	
+	private double getMonthTotalExpenses() {
+		return getThisMonthReport().getPeriodTotal();
+	}
+	
+	public void notifyIfExpenseLimitExceeded(Long accountId) {
+		Account account = getAccount(accountId);
+		double totalSpentThisMonth = getMonthTotalExpenses();
+		double limit = account.getExpenseLimit();
+		double remainingAmount = limit - totalSpentThisMonth;
+		 if (limit > 0 && remainingAmount <= (0.2 * limit)) {
+			 System.out.print("ExpenseServiceImpl, limit was: " + limit);
+	            webSocket.sendExpenseLimitNotification(account.getFirstName(), totalSpentThisMonth, limit, remainingAmount);
+	        }
 	}
 
 	@Override
@@ -103,6 +120,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 		Optional.ofNullable(inputs.getAmount()).ifPresent(expense::setAmount);
 	    Optional.ofNullable(inputs.getCategory()).ifPresent(expense::setCategory);
 	    Optional.ofNullable(inputs.getDescription()).ifPresent(expense::setDescription);
+	    notifyIfExpenseLimitExceeded(getAccountId());
 		
 	}
 	

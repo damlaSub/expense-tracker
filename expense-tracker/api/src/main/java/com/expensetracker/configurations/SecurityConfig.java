@@ -50,18 +50,31 @@ public class SecurityConfig {
     }
     
     //TODO
+//    @Bean
+//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.cors(corsCustomizer())
+//            .csrf(csrf -> csrf.disable())
+//            .authorizeHttpRequests(authz -> authz
+//            		.requestMatchers("/account/sign-up", "/account/sign-in", "/account/expense-limit", "/account/refresh-token", "/swagger-ui/**", "/v3/api-docs/**").permitAll() 
+//            		.requestMatchers("/expenses/**", "/expense-categories").authenticated()
+//            		.anyRequest().authenticated()
+//                    )
+//            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT authentication
+//        return http.build();
+//    }
+    
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(corsCustomizer())
-            .csrf(csrf -> csrf.disable())
+        http.cors(cors -> cors.disable()) // Disable CORS temporarily
+            .csrf(csrf -> csrf.disable()) // Disable CSRF temporarily
             .authorizeHttpRequests(authz -> authz
-            		.requestMatchers("/account/sign-up", "/account/sign-in", "/account/refresh-token", "/swagger-ui/**", "/v3/api-docs/**").permitAll() 
-            		.requestMatchers("/expenses/**", "/expense-categories").authenticated()
-            		.anyRequest().authenticated()
-                    )
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT authentication
+            		//TO BE CANCELED
+            	.requestMatchers("/websocket/**").permitAll() 
+                .anyRequest().permitAll()) // Allow all requests
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT authentication (optional for debugging)
         return http.build();
     }
+
 
 
     private Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {

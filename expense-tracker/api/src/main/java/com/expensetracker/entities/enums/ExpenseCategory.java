@@ -1,5 +1,8 @@
 package com.expensetracker.entities.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum ExpenseCategory {
 		FOOD("Food"),
 		TRAVEL("Travel"),
@@ -15,13 +18,24 @@ public enum ExpenseCategory {
 		INVESTMENTS("Investments"),
 		OTHER("Other");
 		
-		private final String name;
-	
-	ExpenseCategory(String name){
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
+	 private final String name;
+
+	    ExpenseCategory(String name) {
+	        this.name = name;
+	    }
+
+	    @JsonValue
+	    public String getName() {
+	        return name;
+	    }
+
+	    @JsonCreator
+	    public static ExpenseCategory fromName(String name) {
+	        for (ExpenseCategory category : ExpenseCategory.values()) {
+	            if (category.name.equalsIgnoreCase(name)) {
+	                return category;
+	            }
+	        }
+	        throw new IllegalArgumentException("Invalid category: " + name);
+	    }
 }

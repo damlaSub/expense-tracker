@@ -3,13 +3,17 @@ package com.expensetracker.service;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.expensetracker.dto.AccountCreateDto;
 import com.expensetracker.dto.AccountSigninDto;
+import com.expensetracker.dto.ExpenseLimitUpdateDto;
 import com.expensetracker.dto.RefreshTokenRequest;
 import com.expensetracker.dto.TokenInfo;
 import com.expensetracker.entities.Account;
@@ -42,6 +46,7 @@ public class AccountServiceImpl implements AccountService {
 		String hashPassword = authHelper
 			.encode(inputs.getPassword());
 		account.setPassword(hashPassword);
+		account.setExpenseLimit(0.0);
 		accountRepository.save(account);
 	    }
 	 
@@ -102,5 +107,26 @@ public class AccountServiceImpl implements AccountService {
 			.existsByEmailIgnoreCase(email.toString());
 	    }
 
+		@Override
+		public void updateExpenseLimit(ExpenseLimitUpdateDto inputs) {
+			Account account = accountRepository.findById(getAccountId())
+	                .orElseThrow(() -> new RuntimeException("Account not found"));
+			if(inputs.getId().equals(account.getId())) {
+			System.out.print(inputs);
+				account.setExpenseLimit(inputs.getExpenseLimit());
+			}
+			
+		}
+		
+		Long getAccountId() {
+			Authentication authentication = SecurityContextHolder
+				.getContext().getAuthentication();
+			if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			    String currentAccountId = authentication
+				    .getName();
+			    return Long.parseLong(currentAccountId);
+			}
+			return null;
+		    }
 	    
 	}

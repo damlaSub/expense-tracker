@@ -3,6 +3,7 @@ package com.expensetracker.service;
 
 import com.expensetracker.dto.AccountCreateDto;
 import com.expensetracker.dto.AccountSigninDto;
+import com.expensetracker.dto.ExpenseLimitUpdateDto;
 import com.expensetracker.dto.RefreshTokenRequest;
 import com.expensetracker.dto.TokenInfo;
 
@@ -16,5 +17,7 @@ public interface AccountService {
 
     public TokenInfo refreshToken(
 	    RefreshTokenRequest request);
+
+	public void updateExpenseLimit(ExpenseLimitUpdateDto inputs);
 
 }

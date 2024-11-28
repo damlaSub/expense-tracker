@@ -4,9 +4,6 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +22,9 @@ public class Account extends AbstractEntity {
 
 	    @Column(name = "password")
 	    private String password;
+	    
+	    @Column(name = "expense_limit", nullable = false, columnDefinition = "NUMERIC(6, 2) DEFAULT 0")
+	    private Double expenseLimit;
 
 	    public Account() {
 		super();
@@ -35,39 +35,55 @@ public class Account extends AbstractEntity {
 			return firstName;
 		}
 
+
 		public void setFirstName(String firstName) {
 			this.firstName = firstName;
 		}
+
 
 		public String getLastName() {
 			return lastName;
 		}
 
+
+
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
+
+
 
 		public String getEmail() {
 			return email;
 		}
 
+
 		public void setEmail(String email) {
 			this.email = email;
 		}
+
 
 		public String getPassword() {
 			return password;
 		}
 
+
+
 		public void setPassword(String password) {
 			this.password = password;
 		}
 
-		@Override
-		public String toString() {
-			return "Account [ firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-					+ ", password=" + password + "]";
+
+
+		public Double getExpenseLimit() {
+			return expenseLimit;
 		}
+
+
+		public void setExpenseLimit(Double expenseLimit) {
+			this.expenseLimit = expenseLimit;
+		}
+
 
 		@Override
 		public int hashCode() {
@@ -85,7 +101,14 @@ public class Account extends AbstractEntity {
 			Account other = (Account) obj;
 			return Objects.equals(email, other.email);
 		}
-	    
+
+
+		@Override
+		public String toString() {
+			return "Account [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
+					+ password + ", expenseLimit=" + expenseLimit + "]";
+		}
+ 
 
 	
 }
