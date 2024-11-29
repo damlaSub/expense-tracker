@@ -1,0 +1,72 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h3 class="text-center mb-4">Add Expense</h3>
+
+      <!-- Error message -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <form (ngSubmit)="saveExpense()" #expenseForm="ngForm">
+        <!-- Amount input -->
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            id="amount"
+            placeholder="Enter amount"
+            name="amount"
+            [(ngModel)]="expense.amount"
+            required
+            min="1"
+            max="1000000"
+          />
+        </div>
+
+        <!-- Category input -->
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select
+            class="form-control"
+            id="category"
+            name="category"
+            [(ngModel)]="expense.category"
+            required
+          >
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Description input -->
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            placeholder="Enter description"
+            name="description"
+            [(ngModel)]="expense.description"
+            maxlength="1000"
+          />
+        </div>
+
+        <!-- Save Button -->
+        <div class="text-center">
+          <button
+            type="submit" class="btn blue-btn btn-save" 
+            style="white-space: nowrap"
+            [disabled]="!expenseForm.form.valid"
+          >
+            Save Expense
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

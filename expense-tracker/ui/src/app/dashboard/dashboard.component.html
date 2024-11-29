@@ -1,13 +1,45 @@
 <main class="main">
-  <div class="content">
-    <nav class="navbar bg-transparent px-3 border-0">
-      <img src="images/favicon-32x32.png" alt="App Icon" class="app-icon" />
-      <div class="btn-group">
-        <button class="btn btn-light rounded-circle">
-          <i class="bi bi-search"></i>
-        </button>
+
+    <div class="content">
+      <nav class="navbar bg-transparent px-3 border-0 d-flex justify-content-between align-items-center">
+        <!-- App Icon -->
+        <img src="images/favicon-32x32.png" alt="App Icon" class="app-icon" />
+    
+        
+    
+        <div class="btn-group">
+          <!-- Search Bar -->
+        <form class="d-flex me-auto ms-3">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+
+          <button class="btn btn-light rounded-circle"><i class="bi bi-bar-chart-line"></i></button>
+          <button class="btn btn-light rounded-circle"><i class="bi bi-gear"></i></button>
+          <button class="btn btn-light rounded-circle"><i class="bi bi-plus-circle"></i></button>
+
+          <button class="btn btn-light rounded-circle" (click)="toggleNotificationsList()">
+            <i class="bi bi-bell"></i>
+            <span *ngIf="newNotificationsCount > 0" class="badge bg-danger">
+              {{ newNotificationsCount }}
+            </span>
+          </button>
+          
+          <button class="btn btn-light rounded-circle"><i class="bi bi-person"></i></button>
+        </div>
+      </nav>
+    
+          <!-- Notification List Section -->
+      <div *ngIf="showNotificationsList" class="notification-container">
+        <div *ngFor="let notification of notifications" class="alert alert-danger">
+          <strong>{{ notification.subject }}</strong>
+          <p>{{ notification.body }}</p>
+          <button type="button" class="btn-close" (click)="dismissNotification(notification)"></button>
+        </div>
       </div>
-    </nav>
+
 
     <!-- Greeting & Time Period Selection -->
     <div class="container py-4">
@@ -57,7 +89,10 @@
     <div class="container py-4 pb-1"> 
       <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10 d-flex justify-content-end">
-          <button class="btn py-3 px-4" (click)="navigateToAllExpenses()">
+          <button class="btn py-3 px-4" (click)="navigateToAddExpense()">
+            {{ $t('dashboard.addExpense') }}
+          </button>
+          <button class="btn py-3 px-4 ml-2" (click)="navigateToAllExpenses()">
             {{ $t('dashboard.showAll') }}
           </button>
         </div>
@@ -71,15 +106,7 @@
           <app-daily-expenses-list></app-daily-expenses-list>
         </div>
       </div>
-    </div>
+    </div>  
 
-    <div class="d-flex justify-content-around align-items-center bg-transparent p-2 position-fixed bottom-0 w-100 border-0">
-      <button class="btn btn-light rounded-circle"><i class="bi bi-house"></i></button>
-      <button class="btn btn-light rounded-circle"><i class="bi bi-bar-chart-line"></i></button>
-      <button class="btn btn-light rounded-circle"><i class="bi bi-gear"></i></button>
-      <button class="btn btn-light rounded-circle"><i class="bi bi-plus-circle"></i></button>
-      <button class="btn btn-light rounded-circle"><i class="bi bi-bell"></i></button>
-      <button class="btn btn-light rounded-circle"><i class="bi bi-person"></i></button>
-    </div>
   </div>
 </main>

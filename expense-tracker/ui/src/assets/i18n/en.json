@@ -18,7 +18,8 @@
     },
     "dashboard": {
         "account": "My account",
-        "showAll" : "Show All"
+        "showAll" : "Show All",
+        "addExpense": "Add Expense"
     }
   }
   
