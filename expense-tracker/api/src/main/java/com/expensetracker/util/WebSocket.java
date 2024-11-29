@@ -24,4 +24,15 @@ public class WebSocket {
         System.out.println( "WebSocket utils package " + subject);
         expenseLimitMsgTemplate.convertAndSend("/topic/notifications", expenseLimitMsg);
     }
+
+    public void sendExpenseOverLimitNotification(String userName, Double currentAmount, Double limit) {
+        String subject = "Expense Limit Exceeded";
+        String body = String.format("Hello %s,\n\nYou have exceeded your allocated expense limit for this month. Your current spending is $%.2f, which surpasses your limit of $%.2f. Please review your expenses.", 
+                    userName, currentAmount, limit);
+
+        ExpenseLimitMessage expenseOverLimitMsg = new ExpenseLimitMessage(subject, body);
+        System.out.println("WebSocket utils package " + subject);
+        expenseLimitMsgTemplate.convertAndSend("/topic/notifications", expenseOverLimitMsg);
+    }
+
 }
