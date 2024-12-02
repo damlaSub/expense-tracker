@@ -9,8 +9,12 @@ export class WebSocketService {
   private messages: any[] = [];  
 
   constructor() {
+    const token = localStorage.getItem('token');
     this.client = new Client({
       brokerURL: 'ws://localhost:8080/websocket',
+      connectHeaders: {
+        Authorization: `Bearer ${token}`, 
+      }
     });
   }
 
@@ -31,17 +35,7 @@ export class WebSocketService {
 
     this.client.activate(); // Activate the WebSocket connection
   }
-  // connect(onMessageReceived: (message: Message) => void): void {
-  //   this.client.onConnect = () => {
-  //     console.log('Connected to WebSocket');
-  //     this.client.subscribe('/topic/notifications', (message: Message) => {
-  //       console.log('Message received on WebSocket: ', message.body); 
-  //       this.messages.push(JSON.parse(message.body));
-  //       onMessageReceived(message);  
-  //     });
-  //   };
-  // }
-  
+ 
 
   sendMessage(destination: string, body: any): void {
     if (this.client.connected) {

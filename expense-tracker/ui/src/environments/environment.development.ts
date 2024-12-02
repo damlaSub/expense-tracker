@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
     apiURL:  'http://localhost:8080',
-    imgURL: '/images/'
+    imgURL: '/images/',
+    brokerURL: 'ws://localhost:8080/socket'
 };
