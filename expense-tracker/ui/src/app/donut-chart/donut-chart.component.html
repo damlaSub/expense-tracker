@@ -8,10 +8,15 @@
       <h4 class="period-total">{{ periodTotal }} <i class="bi bi-currency-euro"></i> </h4>
     </div>
   </div>
+  <ng-container *ngIf="periodTotal >= 0.1; else noData">
   <p-chart
     type="doughnut"
     [data]="data"
     [options]="options"
     *ngIf="data">
   </p-chart>
+</ng-container>
+<ng-template #noData>
+  <p class="no-data-message">{{ $t('dashboard.nothingToShow') }}</p>
+</ng-template>
 </div>

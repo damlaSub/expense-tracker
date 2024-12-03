@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { ChartModule } from 'primeng/chart';
 import { CommonModule } from '@angular/common';
+import { LocalizationService } from '../services/localization.service';
 
 @Component({
   selector: 'app-donut-chart',
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './donut-chart.component.html',
   styleUrls: ['./donut-chart.component.scss'],
 })
-export class DonutChartComponent implements OnChanges {
+export class DonutChartComponent implements OnInit, OnChanges {
   @Input() timePeriod: string = 'month'; 
   data: any;
   options: any;
@@ -18,7 +19,14 @@ export class DonutChartComponent implements OnChanges {
   endDate: string = '';
   periodTotal: number = 0;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private localizationService: LocalizationService) {}
+  ngOnInit() {
+    this.localizationService.loadLanguage('en'); 
+  }
+  
+  $t(key: string): string {
+    return this.localizationService.translate(key);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['timePeriod'] && changes['timePeriod'].currentValue) {

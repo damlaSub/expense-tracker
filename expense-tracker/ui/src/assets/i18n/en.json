@@ -19,7 +19,8 @@
     "dashboard": {
         "account": "My account",
         "showAll" : "Show All",
-        "addExpense": "Add Expense"
+        "addExpense": "Add Expense",
+        "nothingToShow": "There is nothing to show for this period."
     }
   }
   

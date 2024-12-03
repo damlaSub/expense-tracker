@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client, Message } from '@stomp/stompjs';
+import { environment } from '../../environments/environment.development';
+
 
 @Injectable({
   providedIn: 'root',
@@ -7,15 +9,19 @@ import { Client, Message } from '@stomp/stompjs';
 export class WebSocketService {
   private client: Client;
   private messages: any[] = [];  
+  private brokerUrl= environment.brokerURL;
 
   constructor() {
     const token = localStorage.getItem('token');
     this.client = new Client({
-      brokerURL: 'ws://localhost:8080/websocket',
+      brokerURL: this.brokerUrl,
       connectHeaders: {
         Authorization: `Bearer ${token}`, 
       }
     });
+    console.log('Token sent:', `Bearer ${token}`);
+    console.log(this.client)
+
   }
 
   connect(onMessageReceived: (message: Message) => void): void {
