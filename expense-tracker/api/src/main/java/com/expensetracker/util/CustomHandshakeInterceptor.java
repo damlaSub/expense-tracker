@@ -20,17 +20,26 @@ public boolean beforeHandshake(
 		ServerHttpResponse response,
         org.springframework.web.socket.WebSocketHandler wsHandler,
         Map<String, Object> attributes) {
+	System.out.println("Starting WebSocket handshake...");
     
 	// Log all headers
     System.out.println("Request headers: " + request.getHeaders());
-
-    // Extract the token
-    String token = request.getHeaders().getFirst("Authorization");
-    System.out.println("Authorization Header: " + token);
     
-    if (token != null && token.startsWith("Bearer ")
-    		) {
-        token = token.substring(7); // Remove "Bearer " prefix
+ // Extract token from query parameters
+    String token = null;
+    if (request.getURI().getQuery() != null) {
+        String[] queryParams = request.getURI().getQuery().split("&");
+        for (String param : queryParams) {
+            if (param.startsWith("token=")) {
+                token = param.substring("token=".length());
+                break;
+            }
+        }
+    }
+    System.out.println("Extracted token from query parameters: " + token);
+
+        
+    if (token != null ) {
 
         try {
             String userId = authHelper.getIdFromToken(token);

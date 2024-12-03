@@ -55,8 +55,8 @@ public class SecurityConfig {
         http.cors(corsCustomizer())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-            		.requestMatchers("/account/sign-up", "/account/sign-in", "/account/expense-limit", "/account/refresh-token", "/swagger-ui/**", "/v3/api-docs/**").permitAll() 
-            		.requestMatchers("/expenses/**", "/expense-categories", "/websocket/**").authenticated()
+            		.requestMatchers("/account/sign-up", "/account/sign-in", "/account/expense-limit", "/account/refresh-token", "/swagger-ui/**", "/v3/api-docs/**", "/websocket/**").permitAll() 
+            		.requestMatchers("/expenses/**", "/expense-categories").authenticated()
             		.anyRequest().authenticated()
                     )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT authentication
