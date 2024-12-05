@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LocalizationService } from '../services/localization.service';
 
 @Component({
   selector: 'app-expense-item',
@@ -8,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './expense-item.component.html',
   styleUrl: './expense-item.component.scss'
 })
-export class ExpenseItemComponent {
+export class ExpenseItemComponent implements OnInit {
 
   @Input() expense: { category: string; description?: string; amount: number } = { category: '', amount: 0 };
   @Input() formattedDate: string = '';
@@ -16,6 +17,16 @@ export class ExpenseItemComponent {
   @Input() expenses: Array<{ category: string; description?: string; amount: number }> = [];
   @Input() showDescription: boolean = true;
   @Input() getIconForCategory: (category: string) => string = () => 'bi-question-circle';
+  @Input() showButtons: boolean = false;
+
+  constructor( private localizationService: LocalizationService) { }
+  ngOnInit() {
+    this.localizationService.loadLanguage('en'); 
+  }
+
+  $t(key: string): string {
+    return this.localizationService.translate(key);
+  }
 
   // Mapping categories to icons
   categoryIcons: { [key: string]: string } = {

@@ -20,7 +20,8 @@
         "account": "My account",
         "showAll" : "Show All",
         "addExpense": "Add Expense",
-        "nothingToShow": "There is nothing to show for this period."
+        "nothingToShow": "There is nothing to show for this period.",
+        "noExpense": "No expenses recorded."
     }
   }
   

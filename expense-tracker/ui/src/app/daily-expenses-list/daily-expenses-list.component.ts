@@ -14,6 +14,7 @@ export class DailyExpensesListComponent implements OnInit {
   expenses: any[] = [];
   dailyTotal: number = 0;
   formattedDate: string = '';
+  showButtons: boolean = true;
   getIconForCategory(category: string): string {
     return this.categoryIcons[category] || 'bi-question-circle'; 
   }
