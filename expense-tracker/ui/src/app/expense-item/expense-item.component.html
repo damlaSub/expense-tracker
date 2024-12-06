@@ -19,20 +19,30 @@
           <i class="me-2 bi" [ngClass]="getIconForCategory(expense.category)" style="font-size: 1.5rem;"></i>
           {{ expense.category }}
         </div>
-      
-        <!-- Amount -->
-        <div class="text-end fw-bold" style="width: 20%; white-space: nowrap;">
-          {{ expense.amount }} <i class="bi bi-currency-euro"></i>
+
+        <!-- Description (if exists and showDescription is true) -->
+        <div 
+          *ngIf="showDescription && expense.description" 
+          class="flex-grow-1 text-muted text-start px-3">
+          {{ expense.description }}
         </div>
-      
-        <!-- Buttons (Update and Delete) -->
-        <div *ngIf="showButtons" class="ms-auto d-flex gap-2">
-          <button class="btn btn-outline-primary btn-sm">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button class="btn btn-outline-danger btn-sm" (click)="onDelete(expense.id)">
-            <i class="bi bi-x-lg"></i>
-          </button>
+
+        <!-- Amount and Buttons -->
+        <div class="ms-auto d-flex align-items-center" style="white-space: nowrap;">
+          <!-- Amount -->
+          <div class="text-end fw-bold me-3">
+            {{ expense.amount }} <i class="bi bi-currency-euro"></i>
+          </div>
+
+          <!-- Buttons (only if showButtons is true) -->
+          <div *ngIf="showButtons" class="d-flex gap-2">
+            <button class="btn btn-outline-primary btn-sm">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" (click)="onDelete(expense.id)">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
         </div>
       </li>
     </ul>
