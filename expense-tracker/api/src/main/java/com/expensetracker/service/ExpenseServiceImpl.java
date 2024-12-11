@@ -68,14 +68,16 @@ public class ExpenseServiceImpl implements ExpenseService{
 		Account account = getAccount(accountId);
 		double totalSpentThisMonth = getMonthTotalExpenses();
 		double limit = account.getExpenseLimit();
+		if (limit > 0) {
 		double remainingAmount = limit - totalSpentThisMonth;
-		 if (limit > 0 && remainingAmount <= (0.2 * limit ) && remainingAmount >= 0) {
+		 if ( remainingAmount <= (0.2 * limit ) && remainingAmount >= 0) {
 			 System.out.print("ExpenseServiceImpl, limit was: " + limit);
 	            webSocket.sendExpenseLimitNotification(account.getFirstName(), totalSpentThisMonth, limit, remainingAmount);
 	        }  else if (remainingAmount < 0) {
 	            System.out.println("ExpenseServiceImpl, limit exceeded by: " + (-remainingAmount));
 	            webSocket.sendExpenseOverLimitNotification(account.getFirstName(), totalSpentThisMonth, limit);
 	        }
+	}
 	}
 
 	@Override
@@ -206,7 +208,6 @@ public class ExpenseServiceImpl implements ExpenseService{
 	    public List<DailyReport> getAllByAccountIdOrderByDate(Pageable pageable) {
 	        // Fetch the grouped expense data ordered by date
 	        List<Object[]> results = expenseRepo.findExpensesOrderByDateWithDetails(getAccountId(), pageable);
-	        
 	        if (results.isEmpty()) {
 	            return Collections.emptyList();  // Return an empty list if no results
 	        }
