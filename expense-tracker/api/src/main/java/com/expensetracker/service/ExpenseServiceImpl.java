@@ -7,6 +7,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -206,48 +207,49 @@ public class ExpenseServiceImpl implements ExpenseService{
 
 	    @Override
 	    public List<DailyReport> getAllByAccountIdOrderByDate(Pageable pageable) {
-	        // Fetch the grouped expense data ordered by date
-	        List<Object[]> results = expenseRepo.findExpensesOrderByDateWithDetails(getAccountId(), pageable);
-	        if (results.isEmpty()) {
-	            return Collections.emptyList();  // Return an empty list if no results
-	        }
+	        // Fetch all expenses grouped by date
+	        List<Object[]> results = expenseRepo.findExpensesOrderByDateWithDetails(getAccountId());
 
-	        // Create a map to store the expenses grouped by date
-	        Map<LocalDate, List<DailyExpenseItem>> groupedByDate = new HashMap<>();
-
-	        // Iterate over the results and group them by date
+	        // Group expenses by date
+	        Map<LocalDate, List<DailyExpenseItem>> groupedByDate = new LinkedHashMap<>();
 	        for (Object[] row : results) {
-	              
-
 	            DailyExpenseItem item = createExpenseItem(row);
 	            LocalDate date = (LocalDate) row[0];
 
-	            // Add the expense item to the appropriate date group
 	            groupedByDate.computeIfAbsent(date, k -> new ArrayList<>()).add(item);
 	        }
 
 	        // Convert the map to a list of DailyReport objects
-	        List<DailyReport> reports = new ArrayList<>();
-	        
-	        // Format the date and create the DailyReport for each grouped date
-	        for (Map.Entry<LocalDate, List<DailyExpenseItem>> entry : groupedByDate.entrySet()) {
-	            LocalDate date = entry.getKey();
-	            List<DailyExpenseItem> expenses = entry.getValue();
+	        List<DailyReport> reports = groupedByDate.entrySet().stream()
+	            .map(entry -> {
+	                LocalDate date = entry.getKey();
+	                List<DailyExpenseItem> expenses = entry.getValue();
 
-	            String formattedDate = formatDate(date);
+	                String formattedDate = formatDate(date);
+	                double dailyTotal = expenses.stream().mapToDouble(DailyExpenseItem::getAmount).sum();
 
-	            DailyReport report = new DailyReport();
-	            double dailyTotal = expenses.stream().mapToDouble(DailyExpenseItem::getAmount).sum();
-	            report.setFormattedDate(formattedDate);
-	            report.setDailyTotal(dailyTotal);
-	            report.setExpenses(expenses);
+	                DailyReport report = new DailyReport();
+	                report.setFormattedDate(formattedDate);
+	                report.setDailyTotal(dailyTotal);
+	                report.setExpenses(expenses);
 
-	            reports.add(report);
+	                return report;
+	            })
+	            .collect(Collectors.toList());
+
+	     // Implement pagination at the date-group level
+	        int start = (int) pageable.getOffset();
+	        int end = Math.min(start + pageable.getPageSize(), reports.size());
+
+	        // Check if start is out of bounds
+	        if (start > reports.size()) {
+	            return Collections.emptyList(); // Return an empty list if the page is out of bounds
 	        }
 
-	        // Return the list of DailyReport objects
-	        return reports;
+	        return reports.subList(start, end);
+
 	    }
+
 	    
 	    private String formatDate(LocalDate date) {
 	    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM");
